@@ -34,10 +34,4 @@
             />
     </LinearLayout>
 
-    <!--<TextView app:layout_constraintBottom_toBottomOf="@id/ll_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lbl_description" />-->
-
-
 </LinearLayout>
