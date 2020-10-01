@@ -12,10 +12,17 @@ class BookModel ()
 
     init {
         currentIndex = 0
-        val book1 = BookItem(0, "Title1", "Author1", Date(), "Description 1", null)
-        val book2 = BookItem(1, "Title2", "Author2", Date(), "Description 2", null)
-        bookItemList.add(book1)
-        bookItemList.add(book2)
+        //val book1 = BookItem(0, "Title1", "Author1", Date(), "Description 1", null)
+        //val book2 = BookItem(1, "Title2", "Author2", Date(), "Description 2", null)
+        //bookItemList.add(book1)
+        //bookItemList.add(book2)
+
+        for(i in 1..20)
+        {
+            val book = BookItem(i, "Title ${i.toString()}", "Author ${i.toString()}", Date(), "Description ${i.toString()}", null)
+            bookItemList.add(book)
+        }
+
     }
 
     public fun BookCount(): Int {
@@ -30,5 +37,16 @@ class BookModel ()
     {
         return bookItemList[currentIndex]
     }
+
+    public fun SortBookItemList(field: String)
+    {
+        this.bookItemList.sortBy {
+            when(field) {
+                "title" -> it.tittle
+                else -> it.author
+            }
+        }
+    }
+
 
 }

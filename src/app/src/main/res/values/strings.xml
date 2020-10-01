@@ -92,4 +92,6 @@
     <string name="lbl_id">"Details about Item: "</string>
     <string name="lbl_description">More information here</string>
     <string name="detail_title">Item 1</string>
+    <string name="sort_by_title">Sort by title</string>
+    <string name="sort_by_author">Sort by author</string>
 </resources>

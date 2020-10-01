@@ -3,6 +3,8 @@ package edu.uoc.android.pec1library
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +27,7 @@ class BookListActivity : AppCompatActivity() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     private var haveDetailFragment: Boolean = false
+    private var ACTIVITY_TAG = "BookListActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +55,34 @@ class BookListActivity : AppCompatActivity() {
             SetupActivity()
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_list, menu)
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val itemid=item.title.toString()
+
+        when(itemid) {
+            getString(R.string.sort_by_author) ->
+            {
+                Log.d(ACTIVITY_TAG, "Click sort by author")
+                bookModel.SortBookItemList("author")
+            }
+            getString(R.string.sort_by_title)->
+            {
+                Log.d(ACTIVITY_TAG, "Click sort by Title")
+                bookModel.SortBookItemList("title")
+            }
+        }
+
+        viewAdapter.notifyDataSetChanged()
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun SetupActivity()
