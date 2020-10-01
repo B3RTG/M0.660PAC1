@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import edu.uoc.android.pec1library.R
-import edu.uoc.android.pec1library.model.Book
-import java.security.AccessControlContext
+import edu.uoc.android.pec1library.model.BookItem
 
 // class BookAdapter
-public class BookAdapter(context: Context, items: List<Book>): ArrayAdapter<Book>(context, 0, items ) {
-    var bookList: List<Book> = items
+public class BookAdapter(context: Context, items: List<BookItem>): ArrayAdapter<BookItem>(context, 0, items ) {
+    var bookItemList: List<BookItem> = items
 
     public override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
@@ -21,11 +20,10 @@ public class BookAdapter(context: Context, items: List<Book>): ArrayAdapter<Book
 
         val txtIdBook = rowView.findViewById<TextView>(R.id.txt_id_book)
         val txtDescriptionBook = rowView.findViewById<TextView>(R.id.txt_book)
-        val currentBook = bookList[position]
+        val currentBook = bookItemList[position]
 
         txtIdBook.text = currentBook.id.toString()
         txtDescriptionBook.text = currentBook.tittle
-        //return super.getView(position, convertView, parent)
 
         return rowView
     }

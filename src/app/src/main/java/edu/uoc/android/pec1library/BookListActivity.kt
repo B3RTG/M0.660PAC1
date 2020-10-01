@@ -5,66 +5,83 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import edu.uoc.android.pec1library.adapters.BookAdapter
+import edu.uoc.android.pec1library.adapters.BookRecycleViewAdapter
 import edu.uoc.android.pec1library.fragment.BookDetailFragment
-import edu.uoc.android.pec1library.model.Book
+import edu.uoc.android.pec1library.model.BookItem
+import edu.uoc.android.pec1library.model.BookModel
 import kotlinx.android.synthetic.main.activity_book_list.*
 
 
 class BookListActivity : AppCompatActivity() {
+    companion object{
+        lateinit var bookModel: BookModel
+    }
+    private val bookList = arrayListOf<BookItem>()
+    //private val bookModel = BookModel()
 
-    private val TAG = "BookListActivity"
-    private val bookList = arrayListOf<Book>()
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+    private var haveDetailFragment: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_list)
 
-        initListviewBooks()
+        haveDetailFragment = (fl_book_detail != null)
+        bookModel = BookModel()
 
-        val haveDetailFragment = fl_book_detail != null
+        viewManager = LinearLayoutManager(this)
+        viewAdapter = BookRecycleViewAdapter(bookModel) {
 
-        lvw_books.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            Log.i("BookListActivity", "Clicked Desc=" + it.tittle.toString())
+            Log.i("BookListActivity", "Index:  " + bookModel.currentIndex)
 
-            if(haveDetailFragment) {
-
-                Log.i(TAG ,"Book Clicked " + bookList[id.toInt()].tittle + ". Show in detail fragment")
-
-            } else {
-
-                Log.i(TAG ,"Book Clicked " + bookList[id.toInt()].tittle + ". Open activity.")
-
-                val i = Intent(applicationContext, BookDetailActivity::class.java)
-                startActivity(i)
-            }
+            SetupActivity()
 
         }
+        rvw_books.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
 
-        if(haveDetailFragment)
-        { //Load fragment
-            Log.i( TAG," Fragment present on view")
-            val ft = supportFragmentManager.beginTransaction()
-            val fBookFragment = BookDetailFragment()
-            ft.replace(R.id.fl_book_detail, fBookFragment )
-            ft.commit()
+        if(haveDetailFragment) {
+            SetupActivity()
+        }
 
-        } else
-        { //no fragment pressed
-            Log.i("BookListActivity" ," No fragment present")
+    }
+
+    private fun SetupActivity()
+    {
+        if(haveDetailFragment) {
+            SetupFrangemtInformation()
+        } else {
+            StartIntentActivityBookDetail()
         }
     }
 
-    private fun initListviewBooks()
-    {
-        //Dynamic creation of book list
-        for(i in 1..20 ) {
-            //items.add("Item $i")
-            bookList.add(Book(i, "Item $i"))
-        }
 
-        // Create/set adapter for listview
-        val bookAdapter = BookAdapter(this, bookList)
-        lvw_books.adapter = bookAdapter
+    private fun SetupFrangemtInformation()
+    {
+        Log.i("BookListActivity" ," Fragment present on view")
+        val ft = supportFragmentManager.beginTransaction()
+        val fBookFragment = BookDetailFragment(bookModel.CurrentBook())
+        ft.replace(R.id.fl_book_detail, fBookFragment )
+        ft.commit()
+    }
+
+    private fun StartIntentActivityBookDetail()
+    {
+        val intent = Intent(this, BookDetailActivity::class.java)
+        intent.apply {
+            putExtra("currentBookIndex", bookModel.currentIndex)
+        }
+        startActivity(intent)
     }
 
 }
+
+
