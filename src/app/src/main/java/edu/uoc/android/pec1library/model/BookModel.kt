@@ -17,9 +17,17 @@ class BookModel ()
         //bookItemList.add(book1)
         //bookItemList.add(book2)
 
+
         for(i in 1..20)
         {
-            val book = BookItem(i, "Title ${i.toString()}", "Author ${i.toString()}", Date(), "Description ${i.toString()}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam elementum non nisl vitae iaculis. Suspendisse lacinia euismod turpis, eu vehicula ex pharetra nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dapibus, neque finibus varius mattis, leo nibh molestie nunc, ut molestie libero tellus in magna", null)
+            val rnds = (0..6).random()
+
+            val book = BookItem(i,
+                "Title ${i.toString()}",
+                "Author ${i.toString()}", Date(),
+                "Description ${i.toString()}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam elementum non nisl vitae iaculis. Suspendisse lacinia euismod turpis, eu vehicula ex pharetra nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dapibus, neque finibus varius mattis, leo nibh molestie nunc, ut molestie libero tellus in magna",
+                "portada_${rnds}")
+
             bookItemList.add(book)
         }
 

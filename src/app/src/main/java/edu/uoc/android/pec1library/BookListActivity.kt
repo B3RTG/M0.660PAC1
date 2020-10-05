@@ -5,11 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import edu.uoc.android.pec1library.adapters.BookAdapter
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import edu.uoc.android.pec1library.adapters.BookRecycleViewAdapter
 import edu.uoc.android.pec1library.fragment.BookDetailFragment
 import edu.uoc.android.pec1library.model.BookItem
@@ -26,18 +25,25 @@ class BookListActivity : AppCompatActivity() {
 
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private var haveDetailFragment: Boolean = false
+    private var isTabletDevice: Boolean = false
     private var ACTIVITY_TAG = "BookListActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_list)
 
-        haveDetailFragment = (fl_book_detail != null)
-        bookModel = BookModel()
+        isTabletDevice = (fl_book_detail != null)
 
-        viewManager = LinearLayoutManager(this)
-        viewAdapter = BookRecycleViewAdapter(bookModel) {
+        bookModel = BookModel()
+        viewManager = if(isTabletDevice) {
+            LinearLayoutManager(this)
+        } else {
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        }
+
+
+
+        viewAdapter = BookRecycleViewAdapter(isTabletDevice, bookModel) {
 
             Log.i("BookListActivity", "Clicked Desc=" + it.tittle.toString())
             Log.i("BookListActivity", "Index:  " + bookModel.currentIndex)
@@ -45,13 +51,14 @@ class BookListActivity : AppCompatActivity() {
             SetupActivity()
 
         }
+
         rvw_books.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
         }
 
-        if(haveDetailFragment) {
+        if(isTabletDevice) {
             SetupActivity()
         }
 
@@ -87,7 +94,7 @@ class BookListActivity : AppCompatActivity() {
 
     private fun SetupActivity()
     {
-        if(haveDetailFragment) {
+        if(isTabletDevice) {
             SetupFrangemtInformation()
         } else {
             StartIntentActivityBookDetail()

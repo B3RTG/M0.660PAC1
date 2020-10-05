@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintWidth_percent="0.50">
 
-        <ImageView android:src="@drawable/mistborn1"
+        <ImageView android:src="@drawable/portada_0"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content" />
 

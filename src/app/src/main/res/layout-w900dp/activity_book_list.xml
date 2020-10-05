@@ -7,9 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".BookListActivity">
 
-  <!--<ListView android:id="@+id/lvw_books"
-      android:layout_width="400dp"
-      android:layout_height="match_parent" />-->
 
   <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/rvw_books"
