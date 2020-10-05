@@ -66,7 +66,7 @@ class BookRecycleViewAdapter(
         lateinit var currentBookItem: BookItem
         val tvTitle: TextView? = view.findViewById(R.id.txt_book_title_rv)
         val tvAutor: TextView? = view.findViewById(R.id.txt_book_author_rv)
-        val ivBookImage: ImageView = view.findViewById(R.id.iv_detail_book_image)
+        val ivBookImage: ImageView? = view.findViewById(R.id.iv_detail_book_image)
 
         override fun toString(): String {
             return super.toString() + " '" + tvAutor?.text + "'"
