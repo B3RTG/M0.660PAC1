@@ -19,7 +19,7 @@ class BookModel ()
 
         for(i in 1..20)
         {
-            val book = BookItem(i, "Title ${i.toString()}", "Author ${i.toString()}", Date(), "Description ${i.toString()}", null)
+            val book = BookItem(i, "Title ${i.toString()}", "Author ${i.toString()}", Date(), "Description ${i.toString()}: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam elementum non nisl vitae iaculis. Suspendisse lacinia euismod turpis, eu vehicula ex pharetra nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dapibus, neque finibus varius mattis, leo nibh molestie nunc, ut molestie libero tellus in magna", null)
             bookItemList.add(book)
         }
 

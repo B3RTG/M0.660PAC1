@@ -9,6 +9,8 @@ import edu.uoc.android.pec1library.R
 import edu.uoc.android.pec1library.model.BookItem
 import edu.uoc.android.pec1library.model.BookModel
 import kotlinx.android.synthetic.main.fragment_book_detail.*
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 
 class BookDetailFragment () : Fragment() {
 
@@ -22,13 +24,15 @@ class BookDetailFragment () : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return  inflater.inflate(R.layout.fragment_book_detail, container, false)
+        return  inflater.inflate(R.layout.fragment_bool_detail_constraint_layout, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        val dateFormatter = SimpleDateFormat("dd-MM-yyyy")
+
         txt_author.text = this.currentBook?.author
-        txt_publish_date.text = this.currentBook?.publishedDate.toString()
+        txt_publish_date.text = dateFormatter.format(this.currentBook?.publishedDate)
         txt_description.text = this.currentBook?.description
 
     }
